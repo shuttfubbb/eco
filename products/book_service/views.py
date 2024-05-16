@@ -58,7 +58,7 @@ class BookListofCategoryView(APIView):
 
 class SearchBookListView(APIView):
     def get(self, request, key):
-        books = Book.objects.filter(Q(title__icontains=key) | Q(author__icontains=key), is_active__in=[True])
+        books = Book.objects.filter(Q(title__icontains=key) | Q(authors__name__icontains=key), is_active__in=[True])
         serializer = BookInfoSerializer(books, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

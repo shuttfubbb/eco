@@ -22,9 +22,9 @@ from user_model.views import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/ecomSys/user/register/', RegisterView.as_view()),
-    path('api/ecomSys/user/login/', LoginView.as_view()),
-    path('api/ecomSys/user/info/<str:user_id>', UserInfoView.as_view()),
-    path('api/ecomSys/user/change/<str:user_id>', ChangePasswordView.as_view()),
-    path('api/ecomSys/user/update/<str:user_id>', UpdateProfileView.as_view()),
+    path('api/ecomSys/user/register/', RegisterView.as_view(), name='register'),
+    path('api/ecomSys/user/login/', LoginView.as_view(), name='login'),
+    path('api/ecomSys/user/info/<str:user_id>', UserInfoView.as_view(), name='user_info'),
+    path('api/ecomSys/user/change/<str:user_id>', ChangePasswordView.as_view(), name='change_password'),
+    path('api/ecomSys/user/update/<str:user_id>', UpdateProfileView.as_view(), name='update_profile'),
 ]

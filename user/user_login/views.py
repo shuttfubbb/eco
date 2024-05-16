@@ -1,4 +1,5 @@
 from rest_framework import status
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,12 +7,16 @@ from user_model.models import User
 from user_model.serializers import ChangePasswordSerializer, UserLoginSerializer, UserSerializer
 
 class LoginView(APIView):
+    def get(self, request):
+        return render(request, 'login.html')
+    
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data 
             user_serializer = UserSerializer(user)
             
+            return redirect("")
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -25,7 +30,7 @@ class ChangePasswordView(APIView):
         if serializer.is_valid():
             old_password = serializer.validated_data['old_password']
             new_password = serializer.validated_data['new_password']
-            if user.password != old_password:
+            if user.account.password != old_password:
                 return Response({'message': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
             user.set_password(new_password)
             user.save()
