@@ -7,16 +7,12 @@ from user_model.models import User
 from user_model.serializers import ChangePasswordSerializer, UserLoginSerializer, UserSerializer
 
 class LoginView(APIView):
-    def get(self, request):
-        return render(request, 'login.html')
-    
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data 
             user_serializer = UserSerializer(user)
             
-            return redirect("")
             return Response(user_serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
