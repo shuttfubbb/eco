@@ -22,12 +22,12 @@ class TypeSerializer(serializers.ModelSerializer):
         return instance
 
 class MobileSerializer(serializers.ModelSerializer):
-    producer_id = serializers.CharField(write_only=True)
-    type_id = serializers.CharField(write_only=True)
+    type = TypeSerializer()
+    producer = ProducerSerializer()
 
     class Meta:
         model = Mobile
-        fields = ['mobile_id', 'title', 'image', 'price', 'sale', 'quantity', 'color', 'size', 'memory', 'ram', 'cpu', 'pin' 'des', 'producer_id', 'type_id']
+        fields = ['mobile_id', 'title', 'image', 'price', 'sale', 'quantity', 'color', 'size', 'memory', 'ram', 'cpu', 'pin' 'des', 'producer', 'type']
     
     def create(self, validated_data):
         producer_id = validated_data.pop('producer_id', None)

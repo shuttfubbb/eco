@@ -73,18 +73,18 @@ class UserLoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         username = data.get('username', None)
-        password = data.get('password', None)
+        password = data.get('password', None)   
 
         # Lấy ra account dựa trên username và password
         try:
             account = Account.objects.get(username=username, password=password)
         except Account.DoesNotExist:
-            raise serializers.ValidationError('Invalid username or password.')
+            raise serializers.ValidationError('Sai username hoặc password.')
 
         # Kiểm tra xem có user nào liên kết với account này không và user đó có hoạt động không
         user = User.objects.filter(account=account, is_active=True).first()
         if not user:
-            raise serializers.ValidationError('No active user found for these credentials.')
+            raise serializers.ValidationError('Lỗi đăng nhập')
 
         # Nếu tất cả các điều kiện đều thỏa mãn, trả về thông tin user
         return user

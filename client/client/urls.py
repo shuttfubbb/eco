@@ -19,5 +19,6 @@ from client_service.views import*
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
-    path('home/', success, name='success'),
+    path('home/', HomeView.as_view, name='home'),
+    path('all', fetch_books, name='fetch_books'),
 ]

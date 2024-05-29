@@ -23,6 +23,8 @@ class ProducerSerializer(serializers.ModelSerializer):
         return instance
     
 class ClothesSerializer(serializers.ModelSerializer):
+    style = StyleSerializer()
+    producer = ProducerSerializer()
     class Meta:
         model = Clothes
         fields = ['clothes_id', 'title', 'image', 'price', 'sale', 'quantity', 'color', 'des', 'style', 'producer']

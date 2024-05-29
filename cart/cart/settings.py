@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$v8rda#=q&9%wl+!qme)af38$axe=3saqjz%kgw%67ui1oe@o0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 PORT = 4004
 
 

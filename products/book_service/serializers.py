@@ -4,7 +4,7 @@ from .models import Category, Book, Author, Publisher
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['category_id' ,'name', 'des']
+        fields = "__all__"
         
     def destroy(self, instance):
         instance.is_active = False
@@ -14,7 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['author_id' ,'name', 'des']
+        fields = "__all__"
         
     def destroy(self, instance):
         instance.is_active = False
@@ -24,7 +24,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class PublisherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publisher
-        fields = ['publisher_id' ,'name', 'address', 'email', 'phone_number', 'des']
+        fields = "__all__"
 
     def destroy(self, instance):
         instance.is_active = False
@@ -32,10 +32,13 @@ class PublisherSerializer(serializers.ModelSerializer):
         return instance
 
 class BookSerializer(serializers.ModelSerializer):
+    authors = AuthorSerializer(many=True)
+    publisher = PublisherSerializer()
+    category = CategorySerializer()
 
     class Meta:
         model = Book
-        fields = ['book_id', 'title', 'image', 'price', 'sale', 'quantity', 'des', 'category', 'authors', 'publisher']
+        fields = "__all__"
     
     def create(self, validated_data):
         category = validated_data.pop('category', None)
@@ -76,9 +79,13 @@ class BookSerializer(serializers.ModelSerializer):
     
 
 class BookInfoSerializer(serializers.ModelSerializer):
+    authors = AuthorSerializer(many=True)
+    publisher = PublisherSerializer()
+    category = CategorySerializer()
+
     class Meta:
         model = Book
-        fields = ['book_id', 'title', 'image', 'price', 'sale', 'quantity', 'des', 'category', 'authors', 'publisher']
+        fields = "__all__"
 
 class UpdateBookSerializer(serializers.ModelSerializer):
     category_id = serializers.CharField(write_only=True)
@@ -86,7 +93,7 @@ class UpdateBookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['image', 'price', 'sale', 'quantity', 'des', 'category_id', 'publisher_id']
+        fields = ['price', 'sale', 'quantity', 'des', 'category_id', 'publisher_id']
 
     def update(self, instance, validated_data):
         request = self.context.get('request')

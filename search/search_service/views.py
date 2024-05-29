@@ -18,7 +18,7 @@ class SearchView(APIView):
         result = []
         result += self.search_book(key)
         result += self.search_mobile(key)
-
+        result += self.search_clothes(key)
         return Response(result, status=status.HTTP_200_OK)
         
     def search_book(self, key):

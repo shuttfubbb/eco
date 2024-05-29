@@ -1,0 +1,32 @@
+<!-- all_books.html in templates directory of client service -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+</head>
+<body>
+    <h1>All Books</h1>
+    <div>
+        {% for book in books %}
+            <div>
+                <h2>{{ book.title }}</h2>
+                <img src="{{ book.image }}" alt="{{ book.title }}">
+                <p>Price: {{ book.price }}</p>
+                <p>Sale: {{ book.sale }}</p>
+                <p>Quantity: {{ book.quantity }}</p>
+                <p>Description: {{ book.des }}</p>
+                <p>Category: {{ book.category.name }}</p>
+                <p>Publisher: {{ book.publisher.name }}</p>
+                <p>Authors:
+                    {% for author in book.authors %}
+                        {{ author.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -13,6 +13,7 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
         return instance
 
 class PaymentSerializer(serializers.ModelSerializer):
+    payment_method = PaymentMethodSerializer()
     class Meta:
         model = Payment
         fields = ['order_id', 'date_paymented', 'total', 'payment_method', 'status']

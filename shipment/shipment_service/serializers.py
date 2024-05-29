@@ -60,6 +60,9 @@ class CarriersSerializer(serializers.ModelSerializer):
         return instance
 
 class ShipmentSerializer(serializers.ModelSerializer):
+    shipment_info = ShipmentInfoSerializer()
+    carrier = CarriersSerializer()
+    transaction = TransactionSerializer()
     class Meta:
         model = Shipment
         fields = ['order_id', 'shipment_status', 'transaction', 'payment_status', 'shipment_info', 'carrier']
